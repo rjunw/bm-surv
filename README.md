@@ -39,6 +39,7 @@ We find that the final ~5-10 principal components do not have as much informatio
 As previously noted, we performed two modifications on the pediatric dataset, multiple imputation and a complete case analysis (removing missing observations). To analyze the predictive performance, specifically for classification of patient death, we modeled two logistic regressions under a 5-fold cross validation to choose the optimal L2 regularizer penalty. We evaluated the model using F-1, AUC, and accuracy to effectively determine the discriminative capability of this initial model (**Table 1**, **Fig. 4**). 
 
 *Table 1. Comparison of missing data methods on penalized logistic regression performance.*
+
 | | F1 | AUC | ACC |
 | --- | --- | --- | --- |
 | MICE | 0.3846 | 0.5536 | 0.5789 | 
@@ -54,6 +55,7 @@ Due to the poor performance of the logistic regression, even with L2 penalty hyp
 
 
 *Table 2. Comparison of parametric and non-parametric approaches.*
+
 | | F1 | AUC | ACC |
 | --- | --- | --- | --- |
 | MICE LogReg | 0.3846 | 0.5536 | 0.5789 | 
@@ -78,6 +80,7 @@ Interesting, like we initially saw in our exploratory correlation plot, we get t
 Finally, we investigated the actual survival times rather than purely the death outcome. We initially showed non-parametric Kaplan-Meier estimates showing a relatively unbalanced set of survival proportions, where lymphoma prescence was the only population that resulted in 0% survival (**Fig. 2**). In order to use these data for prediction, we first use a Penalized Cox Proportional Hazards model in order to take a semi-parametric appraoch, rather than going straight into a flexible model choice. We find that the survival curves are relatively parallel (except the lymphoma population), and so we take this approach. We perform a 5-fold cross validation in order to choose an Elastic Net linear scalar parameter to weight L1 and L2 penalization terms. Following this, we used a Random Survival Forest (RSF) in order to flexibly model time to death without hyperparmeter tuning. Even without tuning, the RSF outperforms the Cox model using *c*-index as a metric, essentially discriminating risk incorporating survival time over between pairs of individuals (**Table 3**, **Fig. 7**). 
 
 *Table 3. Comparison of semi-parametric and non-parametric survival analysis methods.*
+
 | | c-index |
 | --- | --- |
 | Cox | 0.6895 |
