@@ -1,4 +1,3 @@
-## Ryan Wang
 ### An analysis of pediatric bone marrow transplants, from a classification and survival perspective.
 
 Project writeup can be found in `proj/report.pdf`. 
@@ -31,7 +30,7 @@ Data processing was performed in *R* (*tidyverse*) and *Python* (*pandas, numpy*
 ## Feature selection
 We first wanted to investigate what features should be used in order to achieve best predictive performance. Previously in the correlation analysis, we found some multicollinearity between recipient ages and HLA features, potentially because features are split into subsets. So in an attempt to get decorrelated features, we performed a principal components analysis and analyzed the variance explained by each principal component (**Fig. 3**).
 
-![Variance explained by each principal component.](images/pca_mp.png)
+![Variance explained by each principal component.](proj/images/pca_mp.png)
 
 We find that the final ~5-10 principal components do not have as much information, however in general, we do not see a step drop in information provided, along with a relatively small dataset for prediction. Hence, we justify the use of the entire set of features as covariates for the classification and survival analysis task.
 
@@ -45,7 +44,7 @@ As previously noted, we performed two modifications on the pediatric dataset, mu
 | MICE | 0.3846 | 0.5536 | 0.5789 | 
 | Complete Cases | 0.3000 | 0.4870 | 0.5172 |
 
-![Predictive performance using multiple imputation versus complete case analysis.](images/logreg.png)
+![Predictive performance using multiple imputation versus complete case analysis.](proj/images/logreg.png)
 
 The MICE imputed data resulted in better predictions in all three metrics, however with logistic regression we still have relatively poor performance for this task. This model boasts an especially poor 0.3846 F-1 score suggesting a very poor discriminative capability, in fact, the confusion matrix was only 5-7% better than a 50% true positive and true negative rate. Hence, we would definitely not employ this model for production.
 
@@ -62,7 +61,7 @@ Due to the poor performance of the logistic regression, even with L2 penalty hyp
 | GBCT | 0.6875 | 0.7301 | 0.7368 |
 
 
-![Comparison of prediction models.](images/model_comp.png)
+![Comparison of prediction models.](proj/images/model_comp.png)
 
 Similarly, this model approach improves on the true positive and true negative rates by around 20%. Together, this shows how powerful these more flexible modeling techniques can be, which is especially important in the context of medical diagnosis and prediction.
 
@@ -70,7 +69,7 @@ Similarly, this model approach improves on the true positive and true negative r
 
 Using the previously specified GBCT, we performed a feature importance analysis in order to learn more about what was contributing to this predictive power. Here, we measured importance by *XGBoost*'s **Gain** metric, that is, the accuracy gained by splitting on a feature (**Fig. 6**). 
 
-![Features that contributed the most to accuracy gain in the GBCT.](images/feature_importance.png)
+![Features that contributed the most to accuracy gain in the GBCT.](proj/images/feature_importance.png)
 
 Interesting, like we initially saw in our exploratory correlation plot, we get the most accuracy gain from the *Relapse* feature, indicating whether or not an individual gets a hematological disease again. This makes sense, as a disease reoccuring might suggest something faulty with the immune system, or that the disease may have overcome some resistence and so it may be more lethal. This highlights the previously stated importance of relapse in transplant complications [3]. The second most important predictor was the development of Extensive Chronic Graft vs. Host Disease. This again, agrees with previous literature, and especially highlighting the **chronic** GVHD because unlike the acute version, chronic GVHD has been shown to be the most significant complication (apart from relaps) in child recipients [4]. Furthermore, the third most important predictor, *time until platelet recovery* also resulted in a large gain of accuracy. This makes sense as platelets are an important part of the immune system and so a longer period of time until full recovery would increase the change of death. Together, these data show the interpretability and performance of GBCTs, highlighting the support they provide for claims shown in literature and our correlation analysis.
 
@@ -84,7 +83,7 @@ Finally, we investigated the actual survival times rather than purely the death 
 | Cox | 0.6895 |
 | RSF | 0.7152 |
 
-![Survival curve comparisons of Penalized Cox Proportional Hazards model versus Random Survival Forests.](images/survival_curves.png)
+![Survival curve comparisons of Penalized Cox Proportional Hazards model versus Random Survival Forests.](proj/images/survival_curves.png)
 
 We notice that RSF predictions tend to have lower survival on average, but spread the probabilities out, while the Cox model has a relatively imbalanced distribution. This suggests, even in terms of survival analysis, for the prediction task, non-parametric tree-based models like RSFs are able to effectively model the survival time over regression. 
 
