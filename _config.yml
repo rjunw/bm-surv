@@ -1,5 +1,6 @@
 title: Predicting survival of pediatric bone marrow transplant patients
 description: A comparison of parametric and non-parametric machine learning approaches.
+author: Ryan Jun Wang
 runtime: shiny
 output: html_document
 theme: jekyll-theme-cayman
