@@ -1,0 +1,5 @@
+title: Predicting survival of pediatric bone marrow transplant patients
+description: A comparison of parametric and non-parametric machine learning approaches.
+runtime: shiny
+output: html_document
+theme: jekyll-theme-cayman
