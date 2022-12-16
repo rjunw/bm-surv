@@ -1,4 +1,4 @@
-### An analysis of pediatric bone marrow transplants, from a classification and survival perspective.
+# Predicting pediatric bone marrow survival outcomes using parametric and non-parametric machine learning
 
 Project writeup can be found in `proj/report.pdf`. 
 
