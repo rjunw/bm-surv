@@ -2,11 +2,11 @@
 ## Ryan Wang
 ### An analysis of pediatric bone marrow transplants, from a classification and survival perspective.
 
-Project writeup can be found in `report.pdf`. 
+Project writeup can be found in `proj/report.pdf`. 
 
-The project writeup R markdown can be found in `report.Rmd`.
+The project writeup R markdown can be found in `proj/report.Rmd`.
 
-Project code can be found in `bone_marrow.ipynb`.
+Project code can be found in `proj/bone_marrow.ipynb`.
 
-Cleaned data can be found in `bone-marrow.csv`.
+Cleaned data can be found in `proj/bone-marrow.csv`.
 
